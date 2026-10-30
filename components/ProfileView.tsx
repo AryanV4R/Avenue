@@ -63,7 +63,6 @@ export default function ProfileView({ profile, preview = false, onLinkClick, onA
   return (
     <div
       className={cn(
-        !compact && "fade-up",
         "isolate relative flex w-full flex-col items-center pb-10", compact ? "px-3" : "px-5",
         compact ? "pt-14" : "pt-20",
         t.page,

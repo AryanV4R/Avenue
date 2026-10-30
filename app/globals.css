@@ -74,28 +74,12 @@ html.dark body::before {
 @keyframes page-in {
   0% {
     opacity: 0;
-    transform: translateY(20px) rotateX(-7deg) translateZ(-50px);
+    transform: translateY(6px);
   }
-}
-
-@keyframes page-out {
-  100% {
-    opacity: 0;
-    transform: translateY(-8px) rotateX(5deg) translateZ(-30px);
-  }
-}
-
-.page-stage {
-  perspective: 1400px;
 }
 
 .page-fade {
-  transform-origin: 50% 0;
-  animation: page-in 450ms cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-
-.page-fade.page-out {
-  animation: page-out 180ms ease-in forwards;
+  animation: page-in 200ms ease-out both;
 }
 
 @media (prefers-reduced-motion: reduce) {
