@@ -16,6 +16,10 @@ export default function PublicProfile({ handle }: { handle: string }) {
   const [profile, setProfile] = useState<Profile | null>(own);
 
   useEffect(() => {
+    if (own) {
+      document.title = `${own.displayName || own.handle} (@${own.handle}) · ${APP_NAME}`;
+      return;
+    }
     getProfileByHandle(handle).then((p) => {
       setProfile(p);
       setState(p ? "ready" : "missing");
