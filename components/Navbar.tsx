@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import NavLinks from "@/components/NavLinks";
-import ThemeToggle from "@/components/ThemeToggle";
 import UserMenu from "@/components/UserMenu";
 import { ghostBtn, primaryBtn } from "@/components/ui";
 import { APP_NAME } from "@/lib/config";
@@ -35,7 +34,6 @@ export default function Navbar() {
 
         <div className="flex items-center justify-end gap-2">
           <div id="nav-extra" className="flex items-center" />
-          <ThemeToggle />
           {!ready && <div className={`${bar} h-9 w-9`} />}
           {ready && loggedIn && <UserMenu />}
           {ready && !loggedIn && (

@@ -14,15 +14,9 @@ export const metadata: Metadata = {
   description: "A minimal link-in-bio page. Your socials and links, one clean page.",
 };
 
-// Sets the dark class before paint, so there's no flash.
-const themeScript = `try{var t=localStorage.getItem("linkbio:theme");if(t==="dark"||(!t&&matchMedia("(prefers-color-scheme: dark)").matches))document.documentElement.classList.add("dark")}catch(e){}`;
-
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <head>
-        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
-      </head>
+    <html lang="en" className="dark">
       <body
         className={`${geist.variable} ${bricolage.variable} bg-neutral-50 font-sans text-neutral-900 antialiased dark:bg-neutral-950 dark:text-neutral-100`}
       >
