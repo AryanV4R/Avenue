@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FiUser, FiGrid, FiHome } from "react-icons/fi";
+import { FiUser, FiGrid, FiHome, FiSettings } from "react-icons/fi";
 import { cn } from "@/lib/utils";
 
 const base =
@@ -20,7 +20,14 @@ export default function NavLinks({ handle }: { handle?: string | null }) {
       href: "/dashboard",
       label: "Dashboard",
       icon: FiGrid,
-      on: path.startsWith("/dashboard") || path === "/profile",
+      on: path.startsWith("/dashboard"),
+    },
+    {
+      href: "/profile",
+      label: "Profile",
+      icon: FiSettings,
+      on: path === "/profile",
+      desktopOnly: true,
     },
   ];
   if (handle) {
@@ -34,13 +41,13 @@ export default function NavLinks({ handle }: { handle?: string | null }) {
 
   return (
     <>
-      {items.map(({ href, label, icon: Icon, on }) => (
+      {items.map(({ href, label, icon: Icon, on, desktopOnly }) => (
         <Link
           key={href}
           href={href}
           aria-label={label}
           aria-current={on ? "page" : undefined}
-          className={cn(base, on ? active : idle)}
+          className={cn(base, on ? active : idle, desktopOnly && "max-md:hidden")}
         >
           <Icon size={16} />
           <span className="hidden sm:inline">{label}</span>
