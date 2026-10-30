@@ -6,7 +6,7 @@ import { FiUser, FiGrid, FiHome } from "react-icons/fi";
 import { cn } from "@/lib/utils";
 
 const base =
-  "inline-flex items-center justify-center gap-2 rounded-full px-3 py-2 text-sm font-medium transition active:scale-[0.98] sm:px-4";
+  "inline-flex h-9 items-center justify-center gap-2 rounded-full px-3 text-sm font-medium transition active:scale-[0.98] sm:px-4";
 const idle =
   "text-neutral-500 hover:bg-neutral-100 hover:text-neutral-900 dark:hover:bg-neutral-900 dark:hover:text-white";
 const active = "bg-accent/15 text-accent";
