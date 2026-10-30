@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FiExternalLink, FiGrid, FiHome } from "react-icons/fi";
+import { FiUser, FiGrid, FiHome } from "react-icons/fi";
 import { cn } from "@/lib/utils";
 
 const base =
@@ -27,7 +27,7 @@ export default function NavLinks({ handle }: { handle?: string | null }) {
     items.push({
       href: `/${handle}`,
       label: "My Page",
-      icon: FiExternalLink,
+      icon: FiUser,
       on: path === `/${handle}`,
     });
   }
