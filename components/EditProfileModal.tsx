@@ -39,14 +39,14 @@ export default function EditProfileModal({ profile, onClose, onSaveName, onHandl
 
   return (
     <div
-      className="fixed inset-0 z-50 grid place-items-center bg-black/50 px-5 backdrop-blur-sm"
+      className="fixed inset-0 z-50 grid items-end bg-black/50 backdrop-blur-sm sm:place-items-center sm:px-5"
       onMouseDown={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
     >
       <form
         onSubmit={save}
-        className="fade-up w-full max-w-sm space-y-4 rounded-2xl border border-neutral-200 bg-white p-6 shadow-card dark:border-neutral-800 dark:bg-neutral-900"
+        className="fade-up w-full max-w-none space-y-4 rounded-t-2xl border border-b-0 border-neutral-200 bg-white p-6 shadow-card sm:max-w-sm sm:rounded-2xl sm:border-b dark:border-neutral-800 dark:bg-neutral-900"
       >
         <h2 className="font-display text-xl font-semibold tracking-tight">Edit profile</h2>
 

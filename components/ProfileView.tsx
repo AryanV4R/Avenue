@@ -72,7 +72,7 @@ export default function ProfileView({ profile, preview = false, onLinkClick, onA
     >
       <div aria-hidden className={cn("doodle-layer pointer-events-none absolute inset-0 -z-10", compact && "doodle-layer-compact")} />
       {showBack && (
-        <div className="absolute right-4 top-4 z-10">
+        <div className="fade-up absolute right-4 top-4 z-10">
           <BackButton />
         </div>
       )}

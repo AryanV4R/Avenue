@@ -3,6 +3,8 @@ import PublicProfile from "@/components/PublicProfile";
 import { APP_NAME } from "@/lib/config";
 import { getProfileServer } from "@/lib/server-data";
 
+export const dynamic = "force-dynamic"; // clicks aur edits hamesha fresh dikhein
+
 type Props = { params: Promise<{ handle: string }> };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -24,5 +26,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function Page({ params }: Props) {
   const handle = decodeURIComponent((await params).handle).toLowerCase();
-  return <PublicProfile handle={handle} />;
+  const profile = await getProfileServer(handle);
+  return <PublicProfile handle={handle} initial={profile} />;
 }

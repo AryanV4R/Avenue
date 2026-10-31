@@ -1,12 +1,13 @@
 "use client";
 
 import { useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { FiChevronDown, FiImage, FiLink, FiTrash2, FiX } from "react-icons/fi";
 import { removeImage, uploadImage } from "@/lib/upload";
 import { PLATFORMS, PLATFORM_MAP, PREFIXES, extractHandle } from "@/lib/platforms";
 import type { LinkItem, Profile, SocialItem } from "@/lib/types";
 import { cn, uid } from "@/lib/utils";
-import { iconBtn, inputCls, primaryBtn } from "../ui";
+import { closeBtn, iconBtn, inputCls, primaryBtn } from "../ui";
 import SortableList from "./SortableList";
 import { Card } from "./ui";
 
@@ -254,9 +255,10 @@ export default function LinksAndSocials({ userId, links, socials, onChange }: Pr
       </div>
       </Card>
 
-      {picking && (
+      {picking &&
+        createPortal(
         <div
-          className="fixed inset-0 z-50 grid place-items-center bg-black/40 px-5 backdrop-blur-sm"
+          className="fixed inset-0 z-50 grid items-end bg-black/50 backdrop-blur-sm sm:place-items-center sm:px-5"
           onMouseDown={(e) => {
             if (e.target === e.currentTarget) setPicking(null);
           }}
@@ -265,7 +267,7 @@ export default function LinksAndSocials({ userId, links, socials, onChange }: Pr
           <form
             key={picking}
             onSubmit={add}
-            className="fade-up w-full max-w-sm space-y-3 rounded-2xl border border-neutral-200 bg-white p-5 shadow-card dark:border-neutral-800 dark:bg-neutral-900"
+            className="fade-up w-full max-w-none space-y-3 rounded-t-2xl border border-b-0 border-neutral-200 bg-white p-5 pb-6 shadow-card sm:max-w-sm sm:rounded-2xl sm:border-b dark:border-neutral-800 dark:bg-neutral-900"
           >
             <div className="flex items-center justify-between">
               <span className="flex items-center gap-2 text-sm font-medium">
@@ -276,9 +278,9 @@ export default function LinksAndSocials({ userId, links, socials, onChange }: Pr
                 type="button"
                 aria-label="Close"
                 onClick={() => setPicking(null)}
-                className={iconBtn}
+                className={closeBtn}
               >
-                <FiX />
+                <FiX className="transition-transform group-hover:rotate-90" />
               </button>
             </div>
 
@@ -320,8 +322,9 @@ export default function LinksAndSocials({ userId, links, socials, onChange }: Pr
               Add
             </button>
           </form>
-        </div>
-      )}
+        </div>,
+        document.body
+        )}
       <Card>
       {links.length === 0 && socials.length === 0 ? (
         <p className="flex min-h-[58px] items-center justify-center rounded-2xl border border-dashed border-neutral-300 px-4 py-2.5 text-center text-sm text-neutral-500 dark:border-neutral-700">

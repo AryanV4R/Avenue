@@ -1,7 +1,8 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Bricolage_Grotesque } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import RootPhone from "@/components/RootPhone";
 import { AuthProvider } from "@/lib/auth-context";
 import { ProfileProvider } from "@/lib/profile-context";
 import { APP_NAME } from "@/lib/config";
@@ -14,6 +15,10 @@ export const metadata: Metadata = {
   description: "A minimal link-in-bio page. Your socials and links, one clean page.",
 };
 
+export const viewport: Viewport = {
+  interactiveWidget: "resizes-content",
+};
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className="dark">
@@ -24,6 +29,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <ProfileProvider>
             <Navbar />
             {children}
+            <RootPhone />
           </ProfileProvider>
         </AuthProvider>
       </body>

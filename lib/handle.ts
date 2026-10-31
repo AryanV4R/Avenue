@@ -1,6 +1,6 @@
 const RESERVED = [
   "dashboard", "login", "signup", "api", "admin", "settings",
-  "about", "help", "terms", "privacy", "www", "app", "_next",
+  "about", "help", "terms", "privacy", "www", "app", "_next", "profile", "contact", "avenue", "avenueh",
 ];
 
 export function sanitizeHandle(v: string): string {

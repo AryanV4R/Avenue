@@ -87,3 +87,6 @@ html.dark body::before {
     animation: none;
   }
 }
+.page-stage {
+  overflow: clip;
+}

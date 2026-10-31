@@ -33,7 +33,7 @@ export default function ChooseHandle({
         <h1 className="text-xl font-semibold">Choose your handle</h1>
         <input
           className={inputCls}
-          placeholder="yourname"
+          placeholder="handle"
           autoCapitalize="none"
           autoCorrect="off"
           spellCheck={false}

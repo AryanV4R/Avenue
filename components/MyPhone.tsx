@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { createPortal } from "react-dom";
 import EditProfileModal from "@/components/EditProfileModal";
 import PhonePreview from "@/components/PhonePreview";
 import { useAuth } from "@/lib/auth-context";
@@ -37,16 +38,18 @@ export default function MyPhone({ profile, onUpdate }: Props) {
         onAvatarChange={changeAvatar}
         onEdit={() => setEditing(true)}
       />
-      {editing && (
-        <EditProfileModal
-          profile={profile}
-          onClose={() => setEditing(false)}
-          onSaveName={(n) => onUpdate({ displayName: n })}
-          onHandleChanged={(p) =>
-            onUpdate({ handle: p.handle, handleChangedAt: p.handleChangedAt })
-          }
-        />
-      )}
+      {editing &&
+        createPortal(
+          <EditProfileModal
+            profile={profile}
+            onClose={() => setEditing(false)}
+            onSaveName={(n) => onUpdate({ displayName: n })}
+            onHandleChanged={(p) =>
+              onUpdate({ handle: p.handle, handleChangedAt: p.handleChangedAt })
+            }
+          />,
+          document.body
+        )}
     </>
   );
 }

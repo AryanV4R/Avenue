@@ -12,12 +12,12 @@ export interface PublicTheme {
 
 export const THEMES: Record<ThemeId, PublicTheme> = {
   light: {
-    id: "light", label: "Paper",
-    page: "bg-neutral-50",
-    text: "text-neutral-900",
-    muted: "text-neutral-500",
-    button: "bg-white text-neutral-900 border border-neutral-200/80 shadow-card",
-    swatch: "bg-neutral-50 border border-neutral-300",
+    id: "light", label: "Sky",
+    page: "bg-[#cfe6fb] bg-[radial-gradient(60%_40%_at_20%_0%,rgb(255_255_255/0.85),transparent),radial-gradient(70%_50%_at_90%_100%,rgb(98_160_235/0.55),transparent)]",
+    text: "text-[#0f2238]",
+    muted: "text-[#28435f]",
+    button: "bg-white/60 text-[#0f2238] border border-white/70 shadow-card backdrop-blur-sm",
+    swatch: "bg-gradient-to-br from-[#eaf4ff] via-[#b5d8f8] to-[#6aa6ea]",
   },
   dark: {
     id: "dark", label: "Night",
@@ -36,12 +36,12 @@ export const THEMES: Record<ThemeId, PublicTheme> = {
     swatch: "bg-neutral-200",
   },
   gradient: {
-    id: "gradient", label: "Aurora",
-    page: "bg-gradient-to-b from-[#d3ebe2] via-[#e4edf5] to-[#f0e6ef]",
-    text: "text-neutral-900",
-    muted: "text-neutral-600",
-    button: "bg-white/60 text-neutral-900 border border-white/70 shadow-card backdrop-blur-md",
-    swatch: "bg-gradient-to-br from-[#d3ebe2] to-[#f0e6ef]",
+    id: "gradient", label: "Dusk",
+    page: "bg-gradient-to-b from-[#171a35] via-[#2f2556] to-[#6b3560]",
+    text: "text-white",
+    muted: "text-white/70",
+    button: "bg-white/10 text-white border border-white/15 backdrop-blur-md",
+    swatch: "bg-gradient-to-br from-[#171a35] via-[#2f2556] to-[#6b3560]",
   },
 };
 

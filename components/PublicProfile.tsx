@@ -9,17 +9,25 @@ import { APP_NAME } from "@/lib/config";
 import { getProfileByHandle, recordClick } from "@/lib/storage";
 import type { Profile } from "@/lib/types";
 
-export default function PublicProfile({ handle }: { handle: string }) {
+export default function PublicProfile({
+  handle,
+  initial = null,
+}: {
+  handle: string;
+  initial?: Profile | null;
+}) {
   const { profile: mine } = useAuth();
   const own = mine?.handle === handle ? mine : null;
-  const [state, setState] = useState<"loading" | "ready" | "missing">(own ? "ready" : "loading");
-  const [profile, setProfile] = useState<Profile | null>(own);
+  const start = own ?? initial;
+  const [state, setState] = useState<"loading" | "ready" | "missing">(start ? "ready" : "loading");
+  const [profile, setProfile] = useState<Profile | null>(start);
 
   useEffect(() => {
     if (own) {
       document.title = `${own.displayName || own.handle} (@${own.handle}) · ${APP_NAME}`;
       return;
     }
+    if (initial) return; // server ne title metadata me de diya, dobara fetch nahi
     getProfileByHandle(handle).then((p) => {
       setProfile(p);
       setState(p ? "ready" : "missing");
@@ -48,7 +56,7 @@ const isOwner = !!mine && mine.id === profile.id;
 return (
 <ProfileView
   profile={profile}
-  className="min-h-dvh"
+  className="min-h-dvh overflow-clip"
   showBack={isOwner}
   showShare
   onLinkClick={isOwner ? undefined : (id) => recordClick(profile.handle, id)}

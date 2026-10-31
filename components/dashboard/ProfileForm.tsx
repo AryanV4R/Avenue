@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { FiUpload } from "react-icons/fi";
+import { FiCamera } from "react-icons/fi";
 import BackButton from "@/components/BackButton";
 import ChangeHandleModal from "@/components/ChangeHandleModal";
 import { uploadImage } from "@/lib/upload";
@@ -44,36 +44,47 @@ export default function ProfileForm({ profile, onChange }: Props) {
   return (
     <div className="space-y-5">
       {/* Avatar */}
-      <div className="flex items-center gap-4">
-        {profile.avatar ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src={profile.avatar} alt="" className="h-16 w-16 rounded-full object-cover" />
-        ) : (
-          <div className="grid h-16 w-16 place-items-center rounded-full bg-accent text-xl font-semibold text-white">
-            {name[0]?.toUpperCase()}
-          </div>
-        )}
-        <div className="flex flex-wrap gap-2">
-          <button type="button" onClick={() => fileRef.current?.click()} className={ghostBtn}>
-            <FiUpload /> Upload
-          </button>
+      <div className="relative flex flex-col items-center gap-2">
+        <button
+          type="button"
+          onClick={() => fileRef.current?.click()}
+          aria-label="Change photo"
+          className="relative h-24 w-24 rounded-full outline-none transition active:scale-95 focus-visible:ring-4 focus-visible:ring-accent/30"
+        >
+          {profile.avatar ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={profile.avatar} alt="" className="h-24 w-24 rounded-full object-cover" />
+          ) : (
+            <div className="grid h-24 w-24 place-items-center rounded-full bg-accent text-3xl font-semibold text-white">
+              {name[0]?.toUpperCase()}
+            </div>
+          )}
+          <span className="absolute bottom-0 right-0 grid h-8 w-8 place-items-center rounded-full border-2 border-white bg-accent text-white dark:border-neutral-900">
+            <FiCamera className="text-sm" />
+          </span>
+        </button>
+        <div className="h-5">
           {profile.avatar && (
-            <button type="button" onClick={() => onChange({ avatar: "" })} className={ghostBtn}>
-              Remove
+            <button
+              type="button"
+              onClick={() => onChange({ avatar: "" })}
+              className="text-xs text-neutral-500 transition hover:text-red-500"
+            >
+              Remove photo
             </button>
           )}
-          <input
-            ref={fileRef}
-            type="file"
-            accept="image/*"
-            hidden
-            onChange={(e) => {
-              onFile(e.target.files?.[0]);
-              e.target.value = "";
-            }}
-          />
         </div>
-        <div className="ml-auto">
+        <input
+          ref={fileRef}
+          type="file"
+          accept="image/*"
+          hidden
+          onChange={(e) => {
+            onFile(e.target.files?.[0]);
+            e.target.value = "";
+          }}
+        />
+        <div className="absolute right-0 top-0">
           <BackButton />
         </div>
       </div>

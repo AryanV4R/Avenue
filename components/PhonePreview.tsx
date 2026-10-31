@@ -4,8 +4,8 @@ import { useEffect, useLayoutEffect, useState } from "react";
 import ProfileView from "@/components/ProfileView";
 import type { Profile } from "@/lib/types";
 
-const W = 305;
-const H = 640;
+export const W = 305;
+export const H = 640;
 /** Navbar (64px) + upar/neeche thoda margin. Kam karoge to phone bada hoga. */
 const OFFSET = 112;
 
@@ -13,7 +13,7 @@ const OFFSET = 112;
 let lastScale = 0.85;
 const useIsoLayoutEffect = typeof window !== "undefined" ? useLayoutEffect : useEffect;
 
-function useFit() {
+export function useFit() {
   const [s, setS] = useState(lastScale);
   useIsoLayoutEffect(() => {
     const calc = () => {

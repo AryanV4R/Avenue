@@ -1,2 +1,2 @@
-export const APP_NAME = "LinkBio"; // change to your brand
-export const DOMAIN = "yourdomain.com";
+export const APP_NAME = "Avenue";
+export const DOMAIN = "avenue.in";

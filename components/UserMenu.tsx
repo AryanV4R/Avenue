@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useAuth } from "@/lib/auth-context";
-import { FiLogOut, FiUser } from "react-icons/fi";
+import { FiUser, FiLogOut } from "react-icons/fi";
 import { supabase } from "@/lib/supabase";
 
 export default function UserMenu() {
@@ -67,7 +67,7 @@ const initial = name[0]?.toUpperCase();
         aria-expanded={open}
         className="block rounded-full ring-2 ring-transparent transition hover:ring-accent/40 active:scale-95"
       >
-        {face("h-9 w-9")}
+        {face("h-10 w-10 sm:h-9 sm:w-9")}
       </button>
 
       {open && (
@@ -82,14 +82,16 @@ const initial = name[0]?.toUpperCase();
               )}
             </div>
           </div>
-          <Link
-            href="/profile"
-            onClick={() => setOpen(false)}
-            className="mt-4 flex w-full items-center justify-center gap-2 rounded-full border border-neutral-200 py-2 text-sm font-medium transition hover:bg-neutral-100 active:scale-[0.98] md:hidden dark:border-neutral-800 dark:hover:bg-neutral-800"
-          >
-            <FiUser size={15} />
-            Profile
-          </Link>
+          {profile?.handle && (
+            <Link
+              href={`/${profile.handle}`}
+              onClick={() => setOpen(false)}
+              className="mt-4 flex w-full items-center justify-center gap-2 rounded-full border border-neutral-200 py-2 text-sm font-medium transition hover:bg-neutral-100 active:scale-[0.98] md:hidden dark:border-neutral-800 dark:hover:bg-neutral-800"
+            >
+              <FiUser size={15} />
+              My Page
+            </Link>
+          )}
           <button
             onClick={signOut}
             className="mt-2 flex w-full items-center justify-center gap-2 rounded-full border border-neutral-200 py-2 text-sm font-medium transition hover:bg-neutral-100 active:scale-[0.98] md:mt-4 dark:border-neutral-800 dark:hover:bg-neutral-800"

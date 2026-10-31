@@ -3,35 +3,36 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { FiArrowRight, FiCheck, FiCopy, FiEdit2 } from "react-icons/fi";
+import { FiCheck, FiChevronRight, FiCopy, FiEdit2 } from "react-icons/fi";
 import PhonePreview from "@/components/PhonePreview";
-import MyPhone from "@/components/MyPhone";
+import PhoneSlot from "@/components/PhoneSlot";
 import ChangeHandleModal from "@/components/ChangeHandleModal";
-import { iconBtn, primaryBtn } from "@/components/ui";
+import Footer from "@/components/Footer";
+import { heroBtn, iconBtn } from "@/components/ui";
 import { useAuth } from "@/lib/auth-context";
 import { DOMAIN } from "@/lib/config";
 import { sanitizeHandle, validateHandleFormat } from "@/lib/handle";
-import { isHandleAvailable, saveProfile } from "@/lib/storage";
+import { isHandleAvailable } from "@/lib/storage";
 import type { Profile } from "@/lib/types";
 /** Sample page shown in the hero phone. Purely decorative, never saved. */
 const DEMO: Profile = {
   id: "demo",
   ownerId: "demo",
-  handle: "mayaplays",
-  displayName: "Maya",
-  bio: "Casual gamer. Cozy streams and chill lobbies.",
+  handle: "avenue.in",
+  displayName: "Avenue",
+  bio: "One clean page for all your links and socials.",
   avatar: "",
-  theme: "gradient",
+  theme: "dark",
   socials: [
-    { id: "s1", platform: "instagram", value: "mayaplays" },
-    { id: "s2", platform: "youtube", value: "mayaplays" },
-    { id: "s3", platform: "discord", value: "mayaplays" },
-    { id: "s4", platform: "twitch", value: "mayaplays" },
+    { id: "s1", platform: "instagram", value: "avenue" },
+    { id: "s2", platform: "youtube", value: "avenue" },
+    { id: "s3", platform: "discord", value: "avenue" },
+    { id: "s4", platform: "twitch", value: "avenue" },
   ],
   links: [
-    { id: "l1", title: "Watch my latest stream", url: "example.com", enabled: true, clicks: 0 },
-    { id: "l2", title: "Join the Discord", url: "example.com", enabled: true, clicks: 0 },
-    { id: "l3", title: "My cozy game picks", url: "example.com", enabled: true, clicks: 0 },
+    { id: "l1", title: "Create your page", url: DOMAIN, enabled: true, clicks: 0 },
+    { id: "l2", title: "Claim your handle", url: DOMAIN, enabled: true, clicks: 0 },
+    { id: "l3", title: "Share one link everywhere", url: DOMAIN, enabled: true, clicks: 0 },
   ],
   updatedAt: 0,
 };
@@ -77,12 +78,6 @@ router.push(`/dashboard?handle=${handle}`);
       window.prompt("Copy this link", url);
     }
   }
-  async function updateMyProfile(patch: Partial<Profile>) {
-    if (!myProfile) return;
-    const next = { ...myProfile, ...patch, updatedAt: Date.now() };
-    await saveProfile(next);
-    setMyProfile(next);
-  }
 
   function handleChanged(p: Profile) {
     setMyProfile(p);
@@ -98,26 +93,29 @@ router.push(`/dashboard?handle=${handle}`);
         ? {
             ...DEMO,
             displayName: accountName || DEMO.displayName,
-            handle: handle || "yourname",
+            handle: handle || "handle",
             bio: "Your bio goes here.",
             avatar: accountAvatar,
           }
         : { ...DEMO, avatar: demoAvatar };
   return (
     <main>
-      <section className="mx-auto grid max-w-6xl items-center gap-14 px-5 pb-20 pt-10 sm:px-8 lg:min-h-[calc(100dvh-4rem)] lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:gap-20 lg:py-0">
-        <div className="text-center lg:text-left">
-          <h1 className="text-balance font-display text-4xl font-semibold tracking-tight sm:text-6xl xl:text-7xl">
+      <section className="mx-auto grid min-h-[calc(100dvh-4rem)] max-w-6xl grid-rows-[1fr_auto] items-center gap-6 px-5 pb-0 pt-4 sm:px-8 lg:grid-rows-none lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:gap-20 lg:py-0">
+        <div className="text-left">
+          <h1 className="text-balance font-display text-[2.5rem] font-semibold leading-[1.05] tracking-tight sm:text-6xl xl:text-7xl">
             One link for <span className="text-accent">everything</span> you are.
           </h1>
-          <p className="mx-auto mt-5 max-w-md text-balance text-neutral-500 lg:mx-0 lg:text-lg">
-            Your socials and links on one clean page. Ready in a minute.
+          <p className="mt-4 max-w-[19rem] text-balance text-[15px] leading-relaxed text-neutral-400 sm:max-w-md lg:mt-5 lg:text-lg lg:text-neutral-500">
+            Your socials and links on one clean page.
           </p>
 
           {myHandle === undefined || loggedIn === null ? (
-            <div className="mx-auto mt-10 h-28 max-w-md animate-pulse rounded-3xl bg-neutral-200/60 dark:bg-neutral-800/60 lg:mx-0" />
+            <div className="mx-auto mt-8 w-full max-w-md animate-pulse space-y-3 lg:mx-0 lg:mt-10">
+              <div className="h-[50px] rounded-full bg-neutral-200/60 dark:bg-neutral-800/60" />
+              <div className="h-[52px] rounded-full bg-neutral-200/60 dark:bg-neutral-800/60" />
+            </div>
           ) : loggedIn && myHandle ? (
-            <div className="mx-auto mt-10 w-full max-w-md space-y-3 lg:mx-0">
+            <div className="mx-auto mt-8 w-full max-w-md space-y-3 lg:mx-0 lg:mt-10">
               <div className="flex items-center rounded-full border border-neutral-200 bg-white pl-5 pr-2 shadow-sm dark:border-neutral-800 dark:bg-neutral-900">
                 <span className="min-w-0 flex-1 truncate py-3.5 text-left text-sm">
                   <span className="text-neutral-400">{DOMAIN}/</span>
@@ -134,12 +132,12 @@ router.push(`/dashboard?handle=${handle}`);
                   <FiEdit2 />
                 </button>
               </div>
-              <Link href="/dashboard" className={`${primaryBtn} w-full py-3.5 text-base`}>
-                Go to Dashboard <FiArrowRight />
+              <Link href="/dashboard" className={`${heroBtn} w-full py-3.5 text-base`}>
+                Go to Dashboard <FiChevronRight className="transition-transform group-hover:translate-x-1" />
               </Link>
             </div>
           ) : (
-            <form onSubmit={claim} className="mx-auto mt-10 w-full max-w-md space-y-3 lg:mx-0">
+            <form onSubmit={claim} className="mx-auto mt-8 w-full max-w-md space-y-3 lg:mx-0 lg:mt-10">
               <div className="flex items-center rounded-full border border-neutral-200 bg-white pl-5 pr-2 shadow-sm transition focus-within:border-accent focus-within:ring-4 focus-within:ring-accent/15 dark:border-neutral-800 dark:bg-neutral-900">
                 <span className="text-sm text-neutral-400">{DOMAIN}/</span>
                 <input
@@ -148,7 +146,7 @@ router.push(`/dashboard?handle=${handle}`);
                     setHandle(sanitizeHandle(e.target.value));
                     setError(null);
                   }}
-                  placeholder="yourname"
+                  placeholder="handle"
                   autoCapitalize="none"
                   autoCorrect="off"
                   spellCheck={false}
@@ -156,7 +154,7 @@ router.push(`/dashboard?handle=${handle}`);
                 />
               </div>
               {error && <p className="text-left text-sm text-red-500">{error}</p>}
-              <button disabled={busy} className={`${primaryBtn} w-full py-3.5 text-base`}>
+              <button disabled={busy} className={`${heroBtn} w-full py-3.5 text-base`}>
                 Claim your handle
               </button>
             </form>
@@ -169,7 +167,7 @@ router.push(`/dashboard?handle=${handle}`);
           }`}
         >
           {loggedIn && myProfile ? (
-            <MyPhone profile={myProfile} onUpdate={updateMyProfile} />
+            <PhoneSlot />
           ) : (
             <PhonePreview
               profile={phoneProfile}
@@ -177,7 +175,17 @@ router.push(`/dashboard?handle=${handle}`);
             />
           )}
         </div>
+
+        <div
+          aria-hidden
+          className="relative h-60 overflow-hidden [mask-image:linear-gradient(to_bottom,black_55%,transparent)] lg:hidden"
+        >
+          <PhonePreview
+            profile={loggedIn && myProfile ? { ...myProfile, avatar: myProfile.avatar || accountAvatar } : phoneProfile}
+          />
+        </div>
       </section>
+      <Footer />
       {editingHandle && myProfile && user && (
         <ChangeHandleModal
           profile={myProfile}
